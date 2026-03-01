@@ -20,6 +20,8 @@ app.use("/api/users", require("./routes/userRoutes"))
 app.use("/api/transactions", require("./routes/transactionRoutes"))
 app.use("/api/auctions", require("./routes/auctionRoutes"))
 
-app.listen(3000, () => {
-    console.log("Servidor ejecutándose en puerto 3000")
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
+    console.log("Servidor ejecutándose en puerto " + PORT)
 })
