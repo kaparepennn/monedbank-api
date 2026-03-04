@@ -4,7 +4,7 @@ require("dotenv").config()
 
 const connectDB = require("./config/database")
 
-const app = require(express)
+const app = require("express")
 
 connectDB()
 
