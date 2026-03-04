@@ -4,16 +4,48 @@ const jwt = require("jsonwebtoken")
 
 exports.register = async (req, res) => {
     try {
-        res.json({ message: "Registro funcionando" })
+        const { name, email, password } = req.body
+
+        const hashedPassword = await bcrypt.hash(password, 10)
+
+        const user = new User({
+            name,
+            email,
+            password: hashedPassword
+        })
+
+        await user.save()
+
+        res.json({ message: "Usuario registrado correctamente" })
     } catch (error) {
-        res.status(500).json({ message: "Error en registro" })
+        res.status(500).json({ message: "Error al registrar usuario" })
     }
 }
 
 exports.login = async (req, res) => {
     try {
-        res.json({ message: "Login funcionando" })
+        const { email, password } = req.body
+
+        const user = await User.findOne({ email })
+
+        if (!user) {
+            return res.status(400).json({ message: "Usuario no encontrado" })
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password)
+
+        if (!isMatch) {
+            return res.status(400).json({ message: "Contraseña incorrecta" })
+        }
+
+        const token = jwt.sign(
+            { id: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        )
+
+        res.json({ token })
     } catch (error) {
-        res.status(500).json({ message: "Error en login" })
+        res.status(500).json({ message: "Error al iniciar sesión" })
     }
 }

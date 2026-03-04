@@ -1,15 +1,21 @@
 const mongoose = require("mongoose")
 
-const AuctionSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    initialPrice: Number,
-    currentPrice: Number,
-    endDate: Date,
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+const auctionSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String
+    },
+    currentPrice: {
+        type: Number,
+        required: true
+    },
+    endDate: {
+        type: Date,
+        required: true
     }
 })
 
-module.exports = mongoose.model("Auction", AuctionSchema)
+module.exports = mongoose.model("Auction", auctionSchema)
