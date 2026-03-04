@@ -1,5 +1,4 @@
 const express = require("express")
-const mongoose = require("cors")
 const cors = require("cors")
 require("dotenv").config()
 
