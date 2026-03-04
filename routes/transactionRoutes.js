@@ -1,4 +1,9 @@
-const mongoose = require("mongoose")
-const transactionRoutes = require
+const express = require("express")
+const router = express.Router()
 
-module.exports = connectDB
+const transactionController = require("../controllers/transactionController")
+
+//Ruta para realizar una transferencia entre usuarios
+router.post("/transfer", transactionController.transfer)
+
+module.exports = router
