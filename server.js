@@ -1,20 +1,16 @@
 const express = require("express")
-const mongoose = require("mongoose")
+const mongoose = require("cors")
 const cors = require("cors")
 require("dotenv").config()
 
+const app = require("./config/database")
+
 const app = express()
+
+connectDB()
 
 app.use(cors())
 app.use(express.json())
-
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {
-    console.log("Base de datos conectada correctamente")
-})
-.catch((error) => {
-    console.log("Error al conectar base de datos", error)
-})
 
 app.use("/api/users", require("./routes/userRoutes"))
 app.use("/api/transactions", require("./routes/transactionRoutes"))
