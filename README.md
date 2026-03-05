@@ -1,98 +1,142 @@
 MonedBank API
 
-MonedBank API es un backend desarrollado con Node.js y Express que permite gestionar usuarios, transacciones y subastas dentro de una aplicación bancaria simulada. Este proyecto fue creado como parte de un ejercicio académico para practicar desarrollo de APIs REST, autenticación y conexión con bases de datos en la nube.
+MonedBank API es un servicio backend desarrollado con Node.js, Express y MongoDB que permite gestionar usuarios, transacciones y subastas dentro de una plataforma financiera simulada. Este proyecto fue construido como ejercicio práctico de desarrollo backend y arquitectura de APIs REST, integrando autenticación, conexión a base de datos en la nube y despliegue en un servicio de hosting.
 
-La API está diseñada para funcionar como el backend de una aplicación móvil desarrollada en Android Studio, permitiendo registrar usuarios, iniciar sesión y manejar operaciones relacionadas con transacciones y subastas.
+La API está diseñada para funcionar como el backend de una aplicación web o móvil, permitiendo registrar usuarios, iniciar sesión, administrar transacciones y manejar procesos de subasta.
+
+El proyecto utiliza MongoDB Atlas como base de datos en la nube y puede desplegarse fácilmente en plataformas como Render.
 
 Tecnologías utilizadas
 
-El proyecto fue desarrollado utilizando Node.js como entorno de ejecución del servidor y Express como framework para la creación de la API. Para la base de datos se utiliza MongoDB alojada en MongoDB Atlas. La autenticación se maneja con JSON Web Token y las contraseñas se encriptan utilizando bcryptjs.
+Node.js como entorno de ejecución para JavaScript en el servidor.
 
-También se utilizan dotenv para manejar variables de entorno y cors para permitir la comunicación entre diferentes dominios.
+Express como framework para la construcción de la API REST.
 
-Estructura del proyecto
+MongoDB como base de datos NoSQL.
 
-El proyecto está organizado en varias carpetas para mantener una estructura clara y fácil de mantener.
+Mongoose como ODM para modelar los datos.
 
-La carpeta config contiene la configuración de la base de datos.
+JWT para autenticación mediante tokens.
 
-La carpeta controllers contiene la lógica de negocio para usuarios, transacciones y subastas.
+bcryptjs para cifrado de contraseñas.
 
-La carpeta models contiene los modelos de MongoDB definidos con Mongoose.
+dotenv para gestión de variables de entorno.
 
-La carpeta routes contiene las rutas de la API que conectan las solicitudes HTTP con los controladores.
+cors para permitir conexiones desde aplicaciones externas.
 
-El archivo server.js es el punto de entrada del servidor.
+Arquitectura del proyecto
+
+El proyecto sigue una estructura modular para separar responsabilidades dentro del backend.
+
+config contiene la configuración de conexión a la base de datos.
+
+models define los esquemas de MongoDB.
+
+routes contiene las rutas de la API.
+
+controllers gestiona la lógica de negocio.
+
+server.js inicializa el servidor y conecta todos los componentes.
+
+La estructura del proyecto es la siguiente
+
+config
+database.js
+
+models
+User.js
+Transaction.js
+Auction.js
+
+routes
+userRoutes.js
+transactionRoutes.js
+auctionRoutes.js
+
+controllers
+userController.js
+transactionController.js
+auctionController.js
+
+server.js
+package.json
 
 Instalación del proyecto
 
-Para ejecutar el proyecto de forma local primero es necesario clonar el repositorio.
+Primero clona el repositorio
 
-git clone https://github.com/kaparepennn/monedbank-api
+git clone https://github.com/tuusuario/monedbank-api.git
 
-Luego ingresar a la carpeta del proyecto.
+Luego entra a la carpeta del proyecto
 
 cd monedbank-api
 
-Instalar las dependencias necesarias.
+Instala las dependencias
 
 npm install
 
-Después se debe crear un archivo .env en la raíz del proyecto con las variables necesarias para la conexión con la base de datos.
+Configuración de variables de entorno
 
-MONGO_URI=tu_conexion_de_mongodb
-JWT_SECRET=clave_secreta
+Debes crear un archivo llamado .env en la raíz del proyecto con las siguientes variables
 
-Finalmente se puede iniciar el servidor con el siguiente comando.
+MONGO_URI=tu_cadena_de_conexion_mongodb
+JWT_SECRET=tu_clave_secreta
+PORT=3000
+
+La cadena de conexión se obtiene desde MongoDB Atlas al crear el cluster.
+
+Ejecución del servidor
+
+Para iniciar el servidor ejecuta
 
 node server.js
 
-El servidor se ejecutará por defecto en el puerto 3000.
+Si todo está configurado correctamente deberías ver un mensaje indicando que el servidor está ejecutándose y que la base de datos está conectada.
 
-Endpoints principales
+Endpoints principales de la API
 
-La API cuenta con diferentes endpoints para manejar la información del sistema.
+Usuarios
 
-Registro de usuario
+POST /api/users/register
+Permite registrar un nuevo usuario en el sistema.
 
-POST
-/api/users/register
+POST /api/users/login
+Permite iniciar sesión y obtener un token de autenticación.
 
-Login de usuario
+Transacciones
 
-POST
-/api/users/login
+GET /api/transactions
+Obtiene todas las transacciones registradas.
 
-Crear una transacción
+POST /api/transactions
+Crea una nueva transacción.
 
-POST
-/api/transactions
+Subastas
 
-Obtener transacciones
+GET /api/auctions
+Obtiene todas las subastas disponibles.
 
-GET
-/api/transactions
+POST /api/auctions
+Crea una nueva subasta.
 
-Crear una subasta
+Pruebas de la API
 
-POST
-/api/auctions
+La API puede probarse fácilmente usando herramientas como Postman o Thunder Client.
 
-Obtener subastas
+Ejemplo de URL local
 
-GET
-/api/auctions
+http://localhost:3000/api/users/register
 
 Despliegue
 
-La API está desplegada en la plataforma Render, lo que permite acceder a ella desde aplicaciones externas como clientes web o aplicaciones móviles.
+El proyecto puede desplegarse en Render conectando el repositorio de GitHub y configurando las variables de entorno necesarias dentro del panel de configuración del servicio.
 
-La base de datos está alojada en MongoDB Atlas para permitir acceso seguro desde el servidor desplegado.
+Una vez desplegada, la API queda disponible mediante una URL pública que puede ser consumida por aplicaciones web o móviles.
 
-Uso con aplicaciones móviles
+Integración con aplicaciones móviles
 
-Esta API fue diseñada para ser consumida desde una aplicación Android desarrollada en Android Studio. Las peticiones se pueden realizar mediante librerías como Retrofit o mediante peticiones HTTP estándar.
+Esta API fue diseñada para integrarse fácilmente con aplicaciones Android desarrolladas en Android Studio. Las solicitudes pueden realizarse utilizando bibliotecas como Retrofit o Volley para consumir los endpoints REST.
 
 Autor
 
-Proyecto desarrollado por Karen Palacios y Cristian rINCÓN como parte de un ejercicio académico de desarrollo backend y consumo de APIs.
+Proyecto desarrollado por Karen Palacios como ejercicio de desarrollo backend y consumo de APIs para aplicaciones móviles.
